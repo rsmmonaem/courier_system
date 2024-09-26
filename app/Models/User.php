@@ -1,25 +1,17 @@
 <?php
 
 namespace App\Models;
-use App\Models\Address;
-use App\Models\Shipment;
-use App\Models\Payment;
-use App\Models\Invoice;
-use App\Models\AdminNotification;
-use App\Models\CustomerSupport;
-use App\Models\LiveChat;
-
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +19,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'username', 'email', 'phone', 'password', 'image', 'role_id', 'is_active', 'email_verified_at'
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -53,45 +47,8 @@ class User extends Authenticatable
         ];
     }
 
-    use HasRoles;
-
-    public function role()
+    public function customer()
     {
-        return $this->belongsTo(Role::class);
-    }
-
-    public function addresses()
-    {
-        return $this->hasMany(Address::class);
-    }
-
-    public function shipments()
-    {
-        return $this->hasMany(Shipment::class);
-    }
-
-    public function payments()
-    {
-        return $this->hasMany(Payment::class);
-    }
-
-    public function invoices()
-    {
-        return $this->hasMany(Invoice::class);
-    }
-
-    public function adminNotifications()
-    {
-        return $this->hasMany(AdminNotification::class);
-    }
-
-    public function customerSupport()
-    {
-        return $this->hasMany(CustomerSupport::class);
-    }
-
-    public function liveChats()
-    {
-        return $this->hasMany(LiveChat::class);
+        return $this->hasOne(Customer::class);
     }
 }

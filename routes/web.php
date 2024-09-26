@@ -1,49 +1,69 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RateController;
-use App\Http\Controllers\RoleController;
+
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AddressController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\LiveChatController;
-use App\Http\Controllers\ShipmentController;
-use App\Http\Controllers\AnalyticsController;
-use App\Http\Controllers\CustomerSupportController;
-use App\Http\Controllers\AdminNotificationController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\HomeController;
-Route::get('/', function () {
-    return view('welcome');
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AgentController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\SuperAdminController;
+
+Route::get('/link', function () {
+    try {
+        Artisan::call('storage:link');
+        return "The storage link has been created successfully.";
+    } catch (\Exception $e) {
+        return "Failed to create the storage link: " . $e->getMessage();
+    }
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('roles', RoleController::class);
-    Route::resource('users', UserController::class);
-    Route::resource('addresses', AddressController::class);
-    Route::resource('shipments', ShipmentController::class);
-    Route::resource('payments', PaymentController::class);
-    Route::resource('invoices', InvoiceController::class);
-    Route::resource('admin-notifications', AdminNotificationController::class);
-    Route::resource('customer-support', CustomerSupportController::class);
-    Route::resource('rates', RateController::class);
-    Route::resource('live-chat', LiveChatController::class);
-    Route::resource('analytics', AnalyticsController::class);
+
+Route::get('/', [FrontendController::class, 'index'])->name('home');
+
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'loginProcess'])->name('loginProcess');
+Route::get('/register', [AuthController::class, 'signUp'])->name('register');
+Route::post('/register', [AuthController::class, 'signUpProcess'])->name('registerProcess');
+
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+
+
+// User Routes
+Route::group(['middleware' => ['role:user']], function () {
+    Route::get('/user', [UserController::class, 'index'])->name('user');
+    Route::get('user/profile', [CustomerController::class, 'my_info'])->name('user/profile');
+
+    Route::get('personal/info', [CustomerController::class, 'personal_info'])->name('personal.info');
+    Route::get('profile/kyc', [CustomerController::class, 'profile_kyc'])->name('profile.kyc');
+    Route::post('kyc.update', [CustomerController::class, 'kyc_update'])->name('kyc.update');
+    Route::get('password/change', [CustomerController::class, 'password_change'])->name('password.change');
+    Route::post('password/update', [CustomerController::class, 'password_update'])->name('password.update');
 });
 
-Auth::routes();
 
+// Super Admin Routes
+Route::group(['middleware' => ['role:super-admin']], function () {
+    Route::get('/super-admin', [SuperAdminController::class, 'index'])->name('super-admin');
+    // User routes
+    Route::get('admin/all-customers', [UserController::class, 'customers'])->name('admin.customers.index');
+    Route::get('admin/all-agents', [UserController::class, 'agents'])->name('admin.agents.index');
+    Route::get('admin/all-users', [UserController::class, 'all_users'])->name('admin.users.index');
+    // Customer routes
+    Route::resource('customers', CustomerController::class);
+});
 
+// Admin Routes
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/admin', [AdminController::class, 'index']);
+});
 
-// Auth Routes
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
-
-
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Agent Routes
+Route::group(['middleware' => ['role:agent']], function () {
+    Route::get('/agent', [AgentController::class, 'index']);
+});
