@@ -10,6 +10,8 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\CustomerSupportController;
+use App\Http\Controllers\LiveChatController;
 
 Route::get('/link', function () {
     try {
@@ -67,3 +69,9 @@ Route::group(['middleware' => ['role:admin']], function () {
 Route::group(['middleware' => ['role:agent']], function () {
     Route::get('/agent', [AgentController::class, 'index']);
 });
+
+// customer supports
+Route::resource('customer-support', CustomerSupportController::class);
+
+
+Route::resource('live-chat', LiveChatController::class);
