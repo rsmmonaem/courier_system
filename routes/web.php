@@ -17,6 +17,9 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\ShipmentTrackingController;
+use App\Http\Controllers\CustomerSupportController;
+use App\Http\Controllers\LiveChatController;
+
 
 Route::get('/link', function () {
     try {
@@ -75,7 +78,6 @@ Route::group(['middleware' => ['role:agent']], function () {
     Route::get('/agent', [AgentController::class, 'index']);
 });
 
-
 Route::resource('addresses', AddressController::class);
 
 
@@ -88,3 +90,8 @@ Route::resource('shipment_trackings', ShipmentTrackingController::class);
 Route::resource('payments', PaymentController::class);
 
 Route::resource('invoices', InvoiceController::class);
+// customer supports
+Route::resource('customer-support', CustomerSupportController::class);
+
+
+Route::resource('live-chat', LiveChatController::class);
