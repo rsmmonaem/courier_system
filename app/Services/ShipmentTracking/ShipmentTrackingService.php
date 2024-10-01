@@ -1,9 +1,11 @@
 <?php
 
-    namespace App\Services\Shipment;
+    namespace App\Services\ShipmentTracking;
+    
     use App\Models\ShipmentTracking;
 
     class ShipmentTrackingService{
+
 
         public function getAllShipmentTrackings(
             $paginatePluckOrGet     = null,
@@ -33,13 +35,13 @@
         }
 
         public function updateShipmentTracking($id, array $payload){
-            $rate = $this->getById($id);
-            return $rate->update($payload);
+            $shipmentTracking = $this->getById($id);
+            return $shipmentTracking->update($payload);
         }
 
         public function destroyShipmentTracking($id){
-            $rate = $this->getById($id);
-            $rate->delete();
+            $shipmentTracking = $this->getById($id);
+            $shipmentTracking->delete();
         }
     }
 ?>

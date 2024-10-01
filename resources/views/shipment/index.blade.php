@@ -46,8 +46,8 @@
                                     <td>{{ $o_address->street, $o_address->city ?? 'Unknown', $o_address->state ?? 'Unknown', $o_address->zip_code ?? 'Unknown', $o_address->country ?? 'Unknown'    }}</td>
                                     <td>{{ $d_address->street, $d_address->city ?? 'Unknown', $d_address->state ?? 'Unknown', $d_address->zip_code ?? 'Unknown', $d_address->country ?? 'Unknown'    }}</td>
                                     <td>{{ $shipment->tracking_number ?? 'Unknown' }}</td>
-                                    <td>{{ $shipment->scheduled_pickup_date->format('Y-m-d H:i') }}</td>
-                                    <td>{{ $shipment->delivery_date->format('Y-m-d H:i') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($shipment->scheduled_pickup_date)->format('Y-m-d H:i') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($shipment->delivery_date)->format('Y-m-d H:i') }}</td>
                                     <td>{{ $shipment->price ?? 'Unknown' }}</td>
                                     <td>{{ $shipment->status ?? 'Unknown' }}</td>
                                     <td>

@@ -10,7 +10,7 @@
             {{-- <a class="badge bg-primary ms-2" href="https://adminkit.io/pricing/"
                 target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a> --}}
         </div>
-
+{{-- @dd($shipment); --}}
         <div class="row">
             <div class="col-12 col-xl-6">
                 <div class="card">
@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('shipments.update', $shipment->id) }}">
                             @csrf
-
+@method('PUT')
                             <div class="mb-3">
                                 <label class="form-label">Origin Address :</label>
                                 <input type="number" class="form-control" name="origin_address_id"  required value="{{ old('origin_address_id', $shipment->origin_address_id) }}">
@@ -30,13 +30,13 @@
                                 <label class="form-label">Destination Address : </label>
                                 <input type="number" class="form-control" name="destination_address_id"  required value="{{ old('origin_address_id', $shipment->origin_address_id) }}">
                             </div>
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label class="form-label">Tracking Number : </label>
-                                <input type="text" class="form-control" name="tracking_no"  required value="{{ old('tracking_no', $shipment->tracking_no) }}">
-                            </div>
+                                <input type="text" class="form-control" name="tracking_number"  required value="{{ old('tracking_no', $shipment->tracking_number) }}">
+                            </div> --}}
                             <div class="mb-3">
                                 <label class="form-label">PickUp Date</label>
-                                <input type="date" class="form-control" name="pickup_date"  required  value="{{ old('pickup_date', $shipment->pickup_date) }}">
+                                <input type="date" class="form-control" name="scheduled_pickup_date"  required  value="{{ old('pickup_date', $shipment->scheduled_pickup_date) }}">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Delivery Date</label>

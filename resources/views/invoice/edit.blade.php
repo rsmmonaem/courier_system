@@ -19,15 +19,15 @@
                         <h6 class="card-subtitle text-muted">Edit Ivoice</h6>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('ivoices.edit', $invoice->id) }}">
+                        <form method="POST" action="{{ route('invoices.update', $invoice->id) }}">
                             @csrf
-
+                            @method('PUT')
                             <div class="mb-3">
                                 <label class="form-label">Shipment Id</label>
                                 <input type="text" class="form-control" name="shipment_id" placeholder="Street" required value="{{ old('shipment_id', $invoice->shipment_id) }}">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Amoiunt </label>
+                                <label class="form-label">Amount </label>
                                 <input type="number" class="form-control" name="amount" placeholder="amount" required value="{{ old('amount', $invoice->amount) }}">
                             </div>
 

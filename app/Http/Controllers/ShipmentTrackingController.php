@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\Shipment\ShipmentTrackingService;
+use App\Services\ShipmentTracking\ShipmentTrackingService;
 use App\Models\ShipmentTracking;
 use App\Http\Requests\StoreShipmentTrackingFormRequest;
 
@@ -18,25 +18,19 @@ class ShipmentTrackingController extends Controller
         }catch(\Throwable $exception){
             return redirect('shipment_trackings.index')->with('error', 'can not able to fetch data.');
         }
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('shipment.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreShipmentTrackingFormRequest $request, ShipmentTrackingService $shipmentTrackingService)
     {
         try{
             $data['shipment'] = $shipmentTrackingService->storeShipmentTracking($request->validated());
-            return redirect('shipment_trackings.index');
+            return redirect()->route('shipment_trackings.index')->with('success','Successfully store a shipment TRACKING');;
         }catch(\Throwable $exception){
             return redirect()->back()->with('error', $exception->message);
         }
@@ -70,7 +64,7 @@ class ShipmentTrackingController extends Controller
     {
         try{
             $data['shipment'] = $shipmentTrackingService->updateShipmentTracking($id, $request->validated());
-            return redirect('shipment_trackings.index');
+            return redirect()->route('shipment_trackings.index')->with('success','Successfully update a shipment tracking');;
         }catch(\Throwable $exception){
             return redirect()->back()->with('error', $exception->message);
         }
