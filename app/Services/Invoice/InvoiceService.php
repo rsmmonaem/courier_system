@@ -6,6 +6,7 @@
     use App\Models\Invoice;
 
 
+
     class InvoiceService{
 
         public function getAllInvoices(
@@ -31,7 +32,10 @@
         }
 
         public function storeInvoice(array $payload){
+            
             $payload['user_id'] = Auth::id();
+            $payload['status']  = "active";
+
             return Invoice::query()->create($payload);
         }
 

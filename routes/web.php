@@ -44,8 +44,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
-// User Routes
-Route::group(['middleware' => ['role:user']], function () {
+    // User Routes
+    Route::group(['middleware' => ['role:user']], function () {
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('user/profile', [CustomerController::class, 'my_info'])->name('user/profile');
 
@@ -59,6 +59,7 @@ Route::group(['middleware' => ['role:user']], function () {
 
 // Super Admin Routes
 Route::group(['middleware' => ['role:super-admin']], function () {
+
     Route::get('/super-admin', [SuperAdminController::class, 'index'])->name('super-admin');
     // User routes
     Route::get('admin/all-customers', [UserController::class, 'customers'])->name('admin.customers.index');
@@ -66,6 +67,14 @@ Route::group(['middleware' => ['role:super-admin']], function () {
     Route::get('admin/all-users', [UserController::class, 'all_users'])->name('admin.users.index');
     // Customer routes
     Route::resource('customers', CustomerController::class);
+
+    Route::resource('addresses', AddressController::class);
+    Route::resource('rates', RateController::class);
+    Route::resource('shipments', ShipmentController::class);
+    Route::resource('shipment_trackings', ShipmentTrackingController::class);
+    Route::resource('payments', PaymentController::class);
+    Route::resource('invoices', InvoiceController::class);
+
 });
 
 // Admin Routes
@@ -78,20 +87,25 @@ Route::group(['middleware' => ['role:agent']], function () {
     Route::get('/agent', [AgentController::class, 'index']);
 });
 
+// Route::resource('addresses', AddressController::class);
 Route::resource('addresses', AddressController::class);
 
 
-Route::resource('rates', RateController::class);
 
-Route::resource('shipments', ShipmentController::class);
-Route::resource('shipment_trackings', ShipmentTrackingController::class);
+// Route::resource('rates', RateController::class);
+
+// Route::resource('shipments', ShipmentController::class);
+// Route::resource('shipment_trackings', ShipmentTrackingController::class);
 
 
-Route::resource('payments', PaymentController::class);
+// Route::resource('payments', PaymentController::class);
 
+
+// Route::resource('invoices', InvoiceController::class);
 Route::resource('invoices', InvoiceController::class);
 // customer supports
 Route::resource('customer-support', CustomerSupportController::class);
 
 
 Route::resource('live-chat', LiveChatController::class);
+

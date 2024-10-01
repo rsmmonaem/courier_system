@@ -22,7 +22,7 @@ class StoreShipmentFormRequest extends FormRequest
     public function rules(): array
     {
 
-      //  dd($this->all());
+      // dd($this->all());
         return [
             'origin_address_id'         => "required",
             'destination_address_id'    => "required",

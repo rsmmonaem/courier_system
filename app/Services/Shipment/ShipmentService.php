@@ -52,6 +52,7 @@
 
         public function updateShipment($id, array $payload){
             $shipment = $this->getById($id);
+          //  dd($shipment);
             return $shipment->update($payload);
         }
 

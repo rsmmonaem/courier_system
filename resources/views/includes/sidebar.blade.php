@@ -56,6 +56,18 @@
                         <li class="sidebar-item">
                             <a class='sidebar-link' href='{{ route('admin.agents.index') }}'>Agent's</a>
                         </li>
+                        <li class="sidebar-item">
+                            <a class='sidebar-link' href='{{ route('addresses.index') }}'>Address</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class='sidebar-link' href='{{ route('shipments.index') }}'>Shipment</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class='sidebar-link' href='{{ route('invoices.index') }}'>Invoice</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class='sidebar-link' href='{{ route('invoices.index') }}'>Invoice</a>
+                        </li>
                     </ul>
                 </li>
 

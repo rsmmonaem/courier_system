@@ -10,10 +10,15 @@ use App\Http\Requests\StoreInvoiceFormRequest;
 class InvoiceController extends Controller
 {
 
+
+
     public function index()
+
     {
         try{
-            $data['invoices'] = (new InvoiceService())->getAllInvoices();
+            $data['invoices'] = (new InvoiceService())->getAllInvoices(true, null, ['user', 'shipment']);
+
+          //  dd($data);
             return view('invoice.index')->with($data);
         }catch(\Throwable $exception){
             return redirect()->back()->with('error', $exception->getMessage());
@@ -30,7 +35,7 @@ class InvoiceController extends Controller
     {
         try{
             $data['invoice'] = $invoiceService->storeInvoice($request->validated());
-            return redirect('invoices.index')->with('success','Successfully store a invoice');
+            return redirect()->route('invoices.index')->with('success','Successfully store an invoice');
         }catch(\Throwable $exception){
             return redirect()->back()->with('error',$exception->getMessage());
         }
@@ -64,7 +69,7 @@ class InvoiceController extends Controller
     {
         try{
             $data['invoice'] = $invoiceService->updateInvoice($id, $request->validated());
-            return redirect('invoices.index')->with('success','Successfully update a payment');
+            return redirect()->route('invoices.index')->with('success','Successfully update a payment');
         }catch(\Throwable $exception){
             return redirect()->back()->with('error', $exception->getMessage());
         }
@@ -75,10 +80,10 @@ class InvoiceController extends Controller
      */
     public function destroy($id, InvoiceService $invoiceService)
     {
-        dd();
+       // dd();
         try{
             $data['invoice'] = $invoiceService->destroyInvoice($id);
-            return redirect('invoices.index')->with('success','Successfully delete a invoice');
+            return redirect()->route('invoices.index')->with('success','Successfully delete an invoice');
         }catch(\Throwable $exception){
             return redirect()->back()->with('error', $exception->getMessage());
         }

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\Shipment\ShipmentTrackingService;
+use App\Services\ShipmentTracking\ShipmentTrackingService;
 use App\Models\ShipmentTracking;
 use App\Http\Requests\StoreShipmentTrackingFormRequest;
 
 class ShipmentTrackingController extends Controller
-
 {
     public function index()
     {
@@ -18,27 +17,21 @@ class ShipmentTrackingController extends Controller
         }catch(\Throwable $exception){
             return redirect('shipment_trackings.index')->with('error', 'can not able to fetch data.');
         }
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('shipment.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreShipmentTrackingFormRequest $request, ShipmentTrackingService $shipmentTrackingService)
     {
         try{
             $data['shipment'] = $shipmentTrackingService->storeShipmentTracking($request->validated());
-            return redirect('shipment_trackings.index');
+            return redirect()->route('shipment_trackings.index')->with('success','Successfully store a shipment TRACKING');;
         }catch(\Throwable $exception){
-            return redirect()->back()->with('error', $exception->message);
+            return redirect()->back()->with('error', $exception->getMessage());
         }
     }
 
@@ -59,7 +52,7 @@ class ShipmentTrackingController extends Controller
             $data['shipment_tracking'] = $shipmentTrackingService->getById($id);
             return view('shipment_tracking.edit')->with($data);
         }catch(\Throwable $exception){
-            return redirect()->back()->with('error', $exception->message);
+            return redirect()->back()->with('error', $exception->getMessage());
         }
     }
 
@@ -70,9 +63,9 @@ class ShipmentTrackingController extends Controller
     {
         try{
             $data['shipment'] = $shipmentTrackingService->updateShipmentTracking($id, $request->validated());
-            return redirect('shipment_trackings.index');
+            return redirect()->route('shipment_trackings.index')->with('success','Successfully update a shipment tracking');;
         }catch(\Throwable $exception){
-            return redirect()->back()->with('error', $exception->message);
+            return redirect()->back()->with('error', $exception->getMessage());
         }
     }
 
@@ -85,7 +78,7 @@ class ShipmentTrackingController extends Controller
             $data['shipment'] = $shipmentTrackingService->destroyShipmentTracking($id);
             return redirect()->back()->with('success', "successfully delete the data.");
         }catch(\Throwable $e){
-            return redirect()->back()->with('error', $e->message);
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 }

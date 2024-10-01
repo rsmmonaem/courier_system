@@ -56,11 +56,13 @@ class ShipmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Shipment $id, ShipmentService $shipmentService)
+    public function edit( $id, ShipmentService $shipmentService)
     {
         try{
+
             $data['shipment'] = $shipmentService->getById($id);
             return view('shipment.edit')->with($data);
+
         }catch(\Throwable $exception){
             return redirect()->back()->with('error', $exception->getMessage());
         }
@@ -68,6 +70,10 @@ class ShipmentController extends Controller
 
     public function update(StoreShipmentFormRequest $request, $id, ShipmentService $shipmentService)
     {
+
+       // dd($request->all());
+
+
         try{
             $data['shipment'] = $shipmentService->updateShipment($id, $request->validated());
             return redirect()->route('shipments.index')->with('success','Successfully update a shipment');
