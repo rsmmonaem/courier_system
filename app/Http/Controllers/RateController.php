@@ -9,11 +9,14 @@ use App\Http\Requests\StoreRateFormRequest;
 
 class RateController extends Controller
 {
-
+    private $rateService = [];
+    public function __contruct(RateService $rateService){
+        $this->rateService = $rateService;
+    }
     public function index()
     {
         try{
-            $data['rates'] = (new RateService())->getAllRate(true);
+            $data['rates'] = $rateService->getAllRate(true);
            // dd($data);
             return view('rate.index')->with($data);
         }catch(\Throwable $exception){
