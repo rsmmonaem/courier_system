@@ -6,11 +6,30 @@ use App\Services\Invoice\InvoiceService;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreInvoiceFormRequest;
+use App\Models\Shipment;
+use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
 
+    public function trackshipment(Request $request){
+            $trackingNumber = $request->get('tracking_number');
+            $shipment = Shipment::with(['originAddress', 'destinationAddress'])
+            ->where('tracking_number', $trackingNumber)
+                ->first();
+            $pickupDate = $shipment->scheduled_pickup_date; 
+            $deliveryDate = $shipment->delivery_date; 
+            if (!($pickupDate instanceof Carbon)) {
+                $pickupDate = Carbon::parse($pickupDate);
+            }
+            if (!($deliveryDate instanceof Carbon)) {
+                $deliveryDate = Carbon::parse($deliveryDate);
+            }
 
+            $pickupDateDiff = $pickupDate->diffForHumans();
+            $deliveryDateDiff = $deliveryDate->diffForHumans();
+            return view('invoice.index', compact('shipment', 'pickupDateDiff', 'deliveryDateDiff'));
+    }
 
     public function index()
 
