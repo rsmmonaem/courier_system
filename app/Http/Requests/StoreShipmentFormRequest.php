@@ -29,6 +29,7 @@ class StoreShipmentFormRequest extends FormRequest
             'scheduled_pickup_date'     => "required",
             'delivery_date'             => "required",
             'price'                     => "required",
+            'status'                     => 'nullable',
         ];
     }
 }

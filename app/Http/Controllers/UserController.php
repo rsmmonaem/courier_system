@@ -14,11 +14,6 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $customer = Customer::where('user_id', $user->id)->first();
-
-
-
-
-
         return view('user.home.index', compact(
                 'customer'
         ));

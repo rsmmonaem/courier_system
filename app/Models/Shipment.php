@@ -13,11 +13,10 @@ class Shipment extends Model
         'user_id',
         'origin_address_id',
         'destination_address_id',
-        'status',
-        'tracking_number',
         'scheduled_pickup_date',
         'delivery_date',
-        'price'
+        'price',
+        'status',
     ];
 
     public function user()

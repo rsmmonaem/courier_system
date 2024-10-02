@@ -50,5 +50,9 @@ use Illuminate\Support\Facades\Auth;
             $address = $this->getById($id);
             $address->delete();
         }
+
+        public function getdata(){
+           return Address::select('id','street','zip_code')->get();
+        }
     }
 ?>

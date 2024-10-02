@@ -16,11 +16,11 @@
 
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
                     <div class="position-relative">
                         <i class="align-middle" data-feather="bell"></i>
-                        <span class="indicator">4</span>
+                        <span class="indicator">0</span>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
@@ -80,7 +80,7 @@
                         <a href="#" class="text-muted">Show all notifications</a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-icon js-fullscreen d-none d-lg-block" href="#">
                     <div class="position-relative">

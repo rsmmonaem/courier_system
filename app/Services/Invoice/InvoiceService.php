@@ -4,7 +4,7 @@
 
     use Illuminate\Support\Facades\Auth;
     use App\Models\Invoice;
-
+use Carbon\Carbon;
 
 
     class InvoiceService{
@@ -33,9 +33,11 @@
 
         public function storeInvoice(array $payload){
             
-            $payload['user_id'] = Auth::id();
-            $payload['status']  = "active";
-
+        $payload['user_id'] = Auth::id();
+        $payload['status']  = "active";
+        $payload['created_at']  = Carbon::now();
+        $payload['updated_at']  = Carbon::now();
+//dd($payload);
             return Invoice::query()->create($payload);
         }
 
