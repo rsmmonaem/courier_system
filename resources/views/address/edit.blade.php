@@ -6,7 +6,7 @@
     <div class="container-fluid p-0">
 
         <div class="mb-3">
-            <h1 class="h3 d-inline align-middle">Create address </h1>
+            <h1 class="h3 d-inline align-middle">Edit address </h1>
             {{-- <a class="badge bg-primary ms-2" href="https://adminkit.io/pricing/"
                 target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a> --}}
         </div>
@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Address</h5>
-                        <h6 class="card-subtitle text-muted">Create Now</h6>
+                        {{--<h6 class="card-subtitle text-muted"> Now</h6>--}}
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('addresses.update', $address->id) }}" >

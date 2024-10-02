@@ -34,7 +34,7 @@ class AddressController extends Controller
     {
         $data['address'] = $addressService->storeAddress($request->validated());
 
-        return redirect()->route('addresses.index')->with('status', 'successfully store an address');
+        return redirect()->route('addresses.index')->with('success', 'successfully store an address');
     }
 
 
@@ -56,14 +56,14 @@ class AddressController extends Controller
     public function update(StoreAddressFormRequest $request, $id, AddressService $addressService)
     {
         $data['address'] = $addressService->updateAddress($id, $request->validated());
-        return redirect()->route('addresses.index')->with('status', 'successfully update an address');
+        return redirect()->route('addresses.index')->with('success', 'successfully update an address');
     }
 
 
     public function destroy($id, AddressService $addressService)
     {
         $data['address'] = $addressService->destroyAddress($id);
-        return redirect()->route('addresses.index')->with('status', 'successfully delete an address');
+        return redirect()->route('addresses.index')->with('success', 'successfully delete an address');
     }
 
 }

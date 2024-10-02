@@ -21,7 +21,9 @@
                         <table id="datatables-multi" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
+                                <td>SI No.</td>
                                     <th>Name</th>
+                                    <th>Email</th>
                                     <th>Street</th>
                                     <th>City</th>
                                     <th>State</th>
@@ -34,6 +36,7 @@
                             <tbody>
                                 @foreach($addresses as $address)
                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $address->user->name }}</td>
                                     <td>{{ $address->user->email }}</td>
                                     <td>{{ $address->street ?? 'Unknown' }}</td>
@@ -54,7 +57,10 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
+                        <div class="d-flex justify-content-end">
+                            {{ $addresses->links() }}
+                        </div>
+                    </>
 
                 </div>
             </div>
