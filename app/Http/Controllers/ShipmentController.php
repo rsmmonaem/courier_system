@@ -6,6 +6,7 @@ use App\Models\Shipment;
 use Illuminate\Http\Request;
 use App\Services\Shipment\ShipmentService;
 use App\Http\Requests\StoreShipmentFormRequest;
+use App\Services\Address\AddressService;
 
 class ShipmentController extends Controller
 {
@@ -27,9 +28,10 @@ class ShipmentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(AddressService $addressService)
     {
-        return view('shipment.create');
+        $data = $addressService->getdata();
+        return view('shipment.create', compact('data'));
     }
 
     /**
@@ -56,12 +58,12 @@ class ShipmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id, ShipmentService $shipmentService)
+    public function edit( $id, ShipmentService $shipmentService, AddressService $addressService)
     {
         try{
-
             $data['shipment'] = $shipmentService->getById($id);
-            return view('shipment.edit')->with($data);
+            $address = $addressService->getdata();
+            return view('shipment.edit', compact('address'))->with($data);
 
         }catch(\Throwable $exception){
             return redirect()->back()->with('error', $exception->getMessage());
@@ -70,10 +72,6 @@ class ShipmentController extends Controller
 
     public function update(StoreShipmentFormRequest $request, $id, ShipmentService $shipmentService)
     {
-
-       // dd($request->all());
-
-
         try{
             $data['shipment'] = $shipmentService->updateShipment($id, $request->validated());
             return redirect()->route('shipments.index')->with('success','Successfully update a shipment');
