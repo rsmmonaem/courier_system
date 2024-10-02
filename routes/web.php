@@ -19,7 +19,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\ShipmentTrackingController;
 use App\Http\Controllers\CustomerSupportController;
 use App\Http\Controllers\LiveChatController;
-
+use App\Http\Controllers\PDFController;
 
 Route::get('/link', function () {
     try {
@@ -31,7 +31,9 @@ Route::get('/link', function () {
 });
 
 
-Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/', function(){
+    return redirect('/login');
+})->name('home');
 
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -73,7 +75,10 @@ Route::group(['middleware' => ['role:super-admin']], function () {
     Route::resource('shipments', ShipmentController::class);
     Route::resource('shipment_trackings', ShipmentTrackingController::class);
     Route::resource('payments', PaymentController::class);
-    Route::resource('invoices', InvoiceController::class);
+    // Route::resource('invoices', InvoiceController::class);
+    Route::get('track-shipment',[InvoiceController::class, 'trackshipment'])->name('track.shipment');
+    // Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
+    Route::get('/transaction/{id}/pdf', [PDFController::class, 'generatePDF']);
 
 });
 
