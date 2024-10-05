@@ -44,11 +44,12 @@
                                 </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">PickUp Date</label>
-                                <input type="date" class="form-control" name="scheduled_pickup_date"  required  value="{{ old('scheduled_pickup_date', optional($shipment->scheduled_pickup_date)->format('Y-m-d')) }}">
+                                <input type="date" class="form-control" name="scheduled_pickup_date" value="{{ old('scheduled_pickup_date', $shipment->scheduled_pickup_date ? $shipment->scheduled_pickup_date->format('Y-m-d') : now()->format('Y-m-d')) }}" required>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Delivery Date</label>
-                                <input type="date" class="form-control" name="delivery_date"  required value="{{ old('scheduled_pickup_date', optional($shipment->delivery_date)->format('Y-m-d')) }}">
+                                <input type="date" class="form-control" name="delivery_date"
+                                value="{{ old('delivery_date', $shipment->delivery_date ? $shipment->delivery_date->format('Y-m-d') : now()->format('Y-m-d')) }}" required>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Price</label>
@@ -58,8 +59,12 @@
                                     <label class="form-label">Status : </label>
                                     <select class="form-control" name="status"  required>
                                         <option>--Select Status --</option>
-                                        <option value="active" {{ $shipment->status == 'active' ? 'selected':'' }}>Active</option>
-                                        <option value="inactive" {{ $shipment->status == 'inactive' ? 'selected':'' }}>Inactive</option>
+                                        <option value="pending" {{ $shipment->status == 'pending' ? 'selected':'' }}>Pending</option>
+                                        <option value="processing" {{ $shipment->status == 'processing' ? 'selected':'' }}>Processing</option>
+                                        <option value="ready for shipping" {{ $shipment->status == 'ready for shipping' ? 'selected':'' }}>Ready for Shipping</option>
+                                        <option value="shipping" {{ $shipment->status == 'shipping' ? 'selected':'' }}>Shipping</option>
+                                        <option value="out for delivery" {{ $shipment->status == 'out for delivery' ? 'selected':'' }}>Out for Delivery</option>
+                                        <option value="shipped" {{ $shipment->status == 'shipped' ? 'selected':'' }}>Shipped</option>
                                     </select>
                                 </div>
                             <button type="submit" class="btn btn-primary">Update Shipment</button>

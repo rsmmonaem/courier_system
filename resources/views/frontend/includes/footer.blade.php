@@ -7,17 +7,18 @@
                 <div class="col-6">
                    <!-- list -->
                    <ul class="nav flex-column">
-                      @foreach($categories as $category)
+                     {{-- @foreach($categories as $category)
                       <li class="nav-item mb-2"><a href="#!" class="nav-link">{{ $category->name }}</a></li>
-                      @endforeach
+                      @endforeach --}} 
                    </ul>
                 </div>
                 <div class="col-6">
                    <!-- list -->
                    <ul class="nav flex-column">
-                    @foreach($categories as $category)
+                   {{-- @foreach($categories as $category)
                     <li class="nav-item mb-2"><a href="#!" class="nav-link">{{ $category->name }}</a></li>
                     @endforeach
+                     --}} 
                    </ul>
                 </div>
              </div>

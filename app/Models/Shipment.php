@@ -19,6 +19,11 @@ class Shipment extends Model
         'status',
     ];
 
+    protected $casts = [
+        'scheduled_pickup_date' => 'datetime',
+        'delivery_date' => 'datetime',
+    ];
+    
     public function user()
     {
         return $this->belongsTo(User::class);

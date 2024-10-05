@@ -47,7 +47,7 @@
                                     <td>{{ \Carbon\Carbon::parse($shipment->delivery_date)->format('Y-m-d H:i') }}</td>
                                     <td>{{ $shipment->price ?? 'Unknown' }}</td>
                                     <td>
-                                        <p class="p-1 {{$shipment->status == 'active' ? 'text-success' : 'text-danger'}}"> 
+                                        <p class="p-1"> 
                                          {{ $shipment->status ?? 'Unknown' }}
                                         </p>
                                     </td>
