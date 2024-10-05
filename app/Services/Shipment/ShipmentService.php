@@ -44,9 +44,7 @@
         public function storeShipment(array $payload){
             $payload['tracking_number'] = $this->generateTrackingNumber();
             $payload['user_id'] = Auth::id();
-            $payload['status']  = "active";
-
-           // dd($payload);
+            $payload['status']  = "pending";
             return Shipment::query()->create($payload);
         }
 

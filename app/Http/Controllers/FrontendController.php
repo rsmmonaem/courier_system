@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Shipment;
+use Carbon\Carbon;
 
 class FrontendController extends Controller
 {
@@ -58,5 +60,24 @@ class FrontendController extends Controller
         }else{
             return redirect('/login');
         }
+    }
+
+    public function track(Request $request) {
+        $trackingNumber = $request->get('tracking_number');
+        $shipment = Shipment::with(['originAddress', 'destinationAddress'])
+        ->where('tracking_number', $trackingNumber)
+            ->first();
+        $pickupDate = $shipment->scheduled_pickup_date;
+        $deliveryDate = $shipment->delivery_date;
+        if (!($pickupDate instanceof Carbon)) {
+            $pickupDate = Carbon::parse($pickupDate);
+        }
+        if (!($deliveryDate instanceof Carbon)) {
+            $deliveryDate = Carbon::parse($deliveryDate);
+        }
+
+        $pickupDateDiff = $pickupDate->diffForHumans();
+        $deliveryDateDiff = $deliveryDate->diffForHumans();
+        return view('frontend.pages.HomePage.index', compact('shipment', 'pickupDateDiff', 'deliveryDateDiff'));  
     }
 }

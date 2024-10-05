@@ -31,9 +31,7 @@ Route::get('/link', function () {
 });
 
 
-Route::get('/', function(){
-    return redirect('/login');
-})->name('home');
+Route::get('/' ,[FrontendController::class, 'track'])->name('home');
 
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -78,9 +76,9 @@ Route::group(['middleware' => ['role:super-admin']], function () {
     // Route::resource('invoices', InvoiceController::class);
     Route::get('track-shipment',[InvoiceController::class, 'trackshipment'])->name('track.shipment');
     // Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
-    Route::get('/transaction/{id}/pdf', [PDFController::class, 'generatePDF']);
-
+   
 });
+Route::get('/transaction/{id}/pdf', [PDFController::class, 'generatePDF']);
 
 // Admin Routes
 Route::group(['middleware' => ['role:admin']], function () {

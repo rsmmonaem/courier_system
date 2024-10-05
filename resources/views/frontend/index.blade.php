@@ -6,10 +6,9 @@
 
    <body>
       <!-- navbar -->
-      @include('frontend.includes.nav')
-
+     {{--@include('frontend.includes.nav')--}} 
       <!-- Shop Cart -->
-      @include('frontend.includes.cart')
+     {{--@include('frontend.includes.cart') --}} 
 
       <main>
          @yield('content')
@@ -154,7 +153,7 @@
             </div>
 
       <!-- footer -->
-      @include('frontend.includes.footer')
+     {{-- @include('frontend.includes.footer') --}} 
 
       <!-- Javascript-->
 

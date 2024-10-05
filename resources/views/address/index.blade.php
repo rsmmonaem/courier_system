@@ -4,24 +4,22 @@
 @section('content')
 <main class="content">
     <div class="container-fluid p-0">
-
-        <div class="mb-3">
-            {{-- <h1 class="h3 d-inline align-middle">Create Address </h1> --}}
-            <a href="{{ route('addresses.create') }}" class="btn btn-primary ">Add Address</a>
-        </div>
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Address</h5>
-                        <h6 class="card-subtitle text-muted">List</h6>
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <div>
+                           <h2 class="fs-30 fw-700">Address List</h2>
+                        </div>
+                        <div>
+                            <a href="{{ route('addresses.create') }}" class="btn btn-primary ">Add Address</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table id="datatables-multi" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                <td>SI No.</td>
+                                <td>SL.</td>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Street</th>
@@ -46,12 +44,14 @@
                                     <td>{{ $address->country ?? 'Unknown' }}</td>
                                     <td>{{ $address->created_at->format('Y-m-d H:i') }}</td>
                                     <td>
-                                        <a href="{{ route('addresses.edit', $address->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <div class="d-flex gap-2">
+                                        <a href="{{ route('addresses.edit', $address->id) }}" class="btn btn-warning btn-sm"><i class="align-middle" data-feather="edit-2"></i></a>
                                         <form action="{{ route('addresses.destroy', $address->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="align-middle" data-feather="trash"></i></button>
                                         </form>
+                                    </div>
                                     </td>
                                 </tr>
                                 @endforeach

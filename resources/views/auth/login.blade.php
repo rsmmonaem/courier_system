@@ -65,7 +65,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
                                             <input class="form-control form-control-lg @error('email') is-invalid @enderror" type="email" name="email"
-                                                placeholder="Enter your email" autofocus required value="{{ old('email') }}" />
+                                                placeholder="Enter your email" autofocus required value="super@example.com" />
                                             @error('email')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -75,7 +75,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
                                             <input class="form-control form-control-lg @error('password') is-invalid @enderror" type="password" name="password"
-                                                placeholder="Enter your password" required />
+                                                placeholder="Enter your password" value="secret" required />
                                             @error('password')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
