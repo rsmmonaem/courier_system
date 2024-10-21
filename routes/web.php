@@ -76,7 +76,12 @@ Route::group(['middleware' => ['role:super-admin']], function () {
     // Route::resource('invoices', InvoiceController::class);
     Route::get('track-shipment',[InvoiceController::class, 'trackshipment'])->name('track.shipment');
     // Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
-   
+
+    Route::get('/import-shipment', [ShipmentController::class, 'import_view'])->name('import.shipment.view');
+    Route::get('/excel', [ShipmentController::class, 'excel']);
+    Route::post('/import-shipment', [ShipmentController::class, 'import'])->name('import.shipment');
+
+
 });
 Route::get('/transaction/{id}/pdf', [PDFController::class, 'generatePDF']);
 

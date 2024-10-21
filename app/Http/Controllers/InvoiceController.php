@@ -12,23 +12,33 @@ use Carbon\Carbon;
 class InvoiceController extends Controller
 {
 
-    public function trackshipment(Request $request){
+    public function trackshipment(Request $request)
+    {
+        $shipment = null; // Initialize as null
+        $pickupDateDiff = '';
+        $deliveryDateDiff = '';
+
+        // Check if a tracking number is provided
+        if ($request->has('tracking_number')) {
             $trackingNumber = $request->get('tracking_number');
-            $shipment = Shipment::with(['originAddress', 'destinationAddress'])
-            ->where('tracking_number', $trackingNumber)
-                ->first();
-            $pickupDate = $shipment->scheduled_pickup_date; 
-            $deliveryDate = $shipment->delivery_date; 
-            if (!($pickupDate instanceof Carbon)) {
-                $pickupDate = Carbon::parse($pickupDate);
-            }
-            if (!($deliveryDate instanceof Carbon)) {
-                $deliveryDate = Carbon::parse($deliveryDate);
+            $shipment = Shipment::where('tracking_number', $trackingNumber)->first();
+
+            // If shipment is not found, redirect back with an error message
+            if (!$shipment) {
+                return redirect()->back()->with('error', 'No shipment found with this tracking number.');
             }
 
+            // Parse the dates
+            $pickupDate = Carbon::parse($shipment->scheduled_pickup_date);
+            $deliveryDate = Carbon::parse($shipment->delivery_date);
+
+            // Calculate the difference in human-readable format
             $pickupDateDiff = $pickupDate->diffForHumans();
             $deliveryDateDiff = $deliveryDate->diffForHumans();
-            return view('invoice.index', compact('shipment', 'pickupDateDiff', 'deliveryDateDiff'));
+        }
+
+        // Return the view, even if no shipment was found
+        return view('invoice.index', compact('shipment', 'pickupDateDiff', 'deliveryDateDiff'));
     }
 
     public function index()
