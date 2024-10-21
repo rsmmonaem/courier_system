@@ -17,11 +17,7 @@
     </div>
 
     <div class="details">
-        <h4>User Information:</h4>
-        <p><strong>Name:</strong> {{ $user_name }}</p>
-        <p><strong>Email:</strong> {{ $user_email }}</p>
-
-        <h4>Shipment Details:</h4>
+        <h4>Shipment Information:</h4>
         <table>
             <tr>
                 <th>Tracking Number</th>
@@ -36,18 +32,78 @@
                 <td>{{ $delivery_date }}</td>
             </tr>
             <tr>
-                <th>Price</th>
-                <td>${{ $price }}</td>
-            </tr>
-            <tr>
                 <th>Status</th>
                 <td>{{ $status }}</td>
             </tr>
+            <tr>
+                <th>Created At</th>
+                <td>{{ $created_at }}</td>
+            </tr>
+            <tr>
+                <th>Updated At</th>
+                <td>{{ $updated_at }}</td>
+            </tr>
+            <tr>
+                <th>Sender Name</th>
+                <td>{{ $suser_name }}</td>
+            </tr>
+            <tr>
+                <th>Sender Number</th>
+                <td>{{ $suser_number }}</td>
+            </tr>
+            <tr>
+                <th>Receiver Name</th>
+                <td>{{ $ruser_name }}</td>
+            </tr>
+            <tr>
+                <th>Receiver Number</th>
+                <td>{{ $ruser_number }}</td>
+            </tr>
+            <tr>
+                <th>Delivery Charge</th>
+                <td>{{ $delivery_charge }} TK</td>
+            </tr>
+            <tr>
+                <th>Service Charge</th>
+                <td>{{ $service_charge }} TK</td>
+            </tr>
+            <tr>
+                <th>COD</th>
+                <td>{{ $cod }} TK</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ $total }} TK</td>
+            </tr>
+            <tr>
+                <th>Product Details</th>
+                <td>{{ $product_details }}</td>
+            </tr>
+            <tr>
+                <th>Product Weight</th>
+                <td>{{ $product_weight }}</td>
+            </tr>
+            <tr>
+                <th>Product Lot</th>
+                <td>{{ $product_lot }}</td>
+            </tr>
+            <tr>
+                <th>Product Quantity</th>
+                <td>{{ $product_quantity }}</td>
+            </tr>
+            <tr>
+                <th>Remark</th>
+                <td>{{ $remark }}</td>
+            </tr>
+            <tr>
+                <th>Origin Address</th>
+                <td>{{ $origin_address }}</td>
+            </tr>
+            <tr>
+                <th>Destination Address</th>
+                <td>{{ $destination_address }}</td>
+            </tr>
         </table>
-
-        <h4>Address Information:</h4>
-        <p><strong>Origin Address:</strong> {{ $origin_address }}</p>
-        <p><strong>Destination Address:</strong> {{ $destination_address }}</p>
     </div>
 </body>
 </html>

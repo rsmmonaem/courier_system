@@ -10,13 +10,26 @@ class Shipment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'origin_address_id',
-        'destination_address_id',
-        'scheduled_pickup_date',
-        'delivery_date',
-        'price',
+         'id',
+        'tracking_number'         ,
+        'scheduled_pickup_date'    ,
+        'delivery_date'           ,
         'status',
+        'suser_name' ,             
+        'suser_number'     ,       
+        'ruser_name'    ,           
+        'ruser_number'    ,       
+        'delivery_charge'        ,
+        'service_charge'      ,    
+        'cod'                 ,   
+        'total'         ,           
+        'product_details'         , 
+        'product_weight' ,       
+        'product_lot'  ,          
+        'product_quantity'      ,
+        'remark'    ,            
+        'origin_address'   ,      
+        'destination_address'   ,
     ];
 
     protected $casts = [
